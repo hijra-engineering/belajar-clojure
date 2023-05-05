@@ -1,10 +1,8 @@
-(ns backend.server)
+(ns backend.server
+  (:require [org.httpkit.server :as kit]))
 
-(prn "Hello, world!")
+(defn handler [_]
+  {:status 200
+   :body "Hello from Clojure"})
 
-(comment
-
-  (+ 1 2)
-
-  ;; insert more forms
-  )
+(kit/run-server handler {:port 5000})
