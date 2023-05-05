@@ -1,0 +1,6 @@
+{:paths ["src"]
+ :aliases
+ {:dev
+  {:extra-deps {nrepl/nrepl {:mvn/version "0.9.0"}}
+   :main-opts  ["-m" "nrepl.cmdline"]}}}
+
