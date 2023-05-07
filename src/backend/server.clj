@@ -16,6 +16,7 @@
 (defonce server (atom nil))
 
 (defn start-server [port]
+  (println (str "Starting server on port " port))
   (reset! server (kit/run-server (wrap-reload #'handler) {:port port})))
 
 (defn stop-server []
