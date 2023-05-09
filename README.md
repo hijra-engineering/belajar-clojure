@@ -1,5 +1,7 @@
 # Clojure Tutorial
 
+_Note_: to follow the progression, check also other branches such as `step0`, `step1`, etc.
+
 **Requirements**: JDK (Java Development Kit), [Clojure](https://clojure).
 
 With [Visual Studio Code](https://code.visualstudio.com/) and [Calva](https://marketplace.visualstudio.com/items?itemName=betterthantomorrow.calva):
