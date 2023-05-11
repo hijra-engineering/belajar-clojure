@@ -9,8 +9,11 @@
 (defn make-greeter [name]
   (fn [_] (str "Hi " name)))
 
+(defonce answer (atom 42))
+
 (defroutes handler
   (GET "/" [] hello-world)
+  (GET "/answer" [] (str "Answer is " @answer))
   (GET "/hi/:name" [name] (make-greeter name)))
 
 (defonce server (atom nil))
@@ -28,6 +31,8 @@
   (start-server 5000))
 
 (comment
+  (reset! answer 88)
+
   (start-server 5000)
   (stop-server)
 
