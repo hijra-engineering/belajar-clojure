@@ -4,7 +4,8 @@
   ring/ring {:mvn/version "1.10.0"}
   compojure/compojure {:mvn/version "1.7.0"}
   org.clojure/java.jdbc {:mvn/version "0.7.12"}
-  org.xerial/sqlite-jdbc {:mvn/version "3.41.2.1"}}
+  org.xerial/sqlite-jdbc {:mvn/version "3.41.2.1"}
+  ring/ring-json {:mvn/version "0.5.1"}}
  :aliases
  {:dev
   {:extra-deps {nrepl/nrepl {:mvn/version "0.9.0"}}

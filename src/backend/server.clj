@@ -1,7 +1,9 @@
 (ns backend.server
   (:require [org.httpkit.server :as kit]
             [ring.middleware.reload :refer [wrap-reload]]
-            [compojure.core :refer [defroutes GET]]))
+            [ring.middleware.json :refer [wrap-json-response]]
+            [compojure.core :refer [defroutes GET]]
+            [backend.db :as db]))
 
 (defn hello-world [_]
   "Hello world with Compojure")
@@ -13,14 +15,17 @@
 
 (defroutes handler
   (GET "/" [] hello-world)
+  (GET "/api/v1" [] (db/all-tasks))
   (GET "/answer" [] (str "Answer is " @answer))
   (GET "/hi/:name" [name] (make-greeter name)))
+
+(def app (wrap-json-response handler))
 
 (defonce server (atom nil))
 
 (defn start-server [port]
   (println (str "Starting server on port " port))
-  (reset! server (kit/run-server (wrap-reload #'handler) {:port port})))
+  (reset! server (kit/run-server (wrap-reload #'app)  {:port port})))
 
 (defn stop-server []
   (when-not (nil? @server)
@@ -36,10 +41,8 @@
   (start-server 5000)
   (stop-server)
 
-  ;; when this replacement is used and evaluated,
-  ;; wrap-reload takes care of applying the new routes
+  (db/all-tasks)
 
-  (defroutes handler
-    (GET "/" [] hello-world)
-    (GET "/salam" [] "Salam")
-    (GET "/hi/:name" [name] (make-greeter name))))
+  ;; space for moar playground
+
+  )

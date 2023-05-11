@@ -5,6 +5,9 @@
   {:dbtype "sqlite"
    :dbname "todo.db"})
 
+(defn all-tasks []
+  (jdbc/query db-spec "SELECT * FROM task"))
+
 (comment
 
   (jdbc/db-do-commands db-spec "CREATE TABLE task (id INTEGER, name TEXT)")
