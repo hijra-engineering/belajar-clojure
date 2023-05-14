@@ -5,6 +5,13 @@
   {:dbtype "sqlite"
    :dbname "todo.db"})
 
+(defn prepare-table! []
+  (jdbc/db-do-commands db-spec
+                       (jdbc/create-table-ddl :task
+                                              [[:id :integer "PRIMARY KEY AUTOINCREMENT"]
+                                               [:name :text]]
+                                              {:conditional? true})))
+
 (defn all-tasks []
   (jdbc/query db-spec "SELECT * FROM task"))
 
@@ -19,12 +26,6 @@
                          [[:id :integer "PRIMARY KEY AUTOINCREMENT"]
                           [:name :text]]
                          {:conditional? true})
-
-  (jdbc/db-do-commands db-spec
-                       (jdbc/create-table-ddl :task
-                                              [[:id :integer "PRIMARY KEY AUTOINCREMENT"]
-                                               [:name :text]]
-                                              {:conditional? true}))
 
   (jdbc/insert! db-spec :task {:name "buy milk"})
 

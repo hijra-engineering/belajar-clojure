@@ -24,6 +24,7 @@
 (defonce server (atom nil))
 
 (defn start-server [port]
+  (db/prepare-table!)
   (println (str "Starting server on port " port))
   (reset! server (kit/run-server (wrap-reload #'app)  {:port port})))
 
