@@ -1,5 +1,6 @@
 (ns backend.db
-  (:require [clojure.java.jdbc :as jdbc]))
+  (:require [clojure.java.jdbc :as jdbc]
+            [honey.sql :as hsql]))
 
 (def db-spec
   {:dbtype "sqlite"
@@ -13,7 +14,7 @@
                                               {:conditional? true})))
 
 (defn all-tasks []
-  (jdbc/query db-spec "SELECT * FROM task"))
+  (jdbc/query db-spec (hsql/format {:select :* :from :task})))
 
 (comment
 
@@ -37,5 +38,11 @@
 
   (jdbc/query db-spec ["SELECT * FROM task WHERE id = ?" 2])
 
-;; TODO: other JDBC command
+  (hsql/format {:select :* :from :task})
+
+  (hsql/format {:select :* :from :task :where [:= :id 2]})
+
+  (jdbc/query db-spec (hsql/format {:select :* :from :task :where [:= :id 2]}))
+
+  ;; TODO: other JDBC command
   )
