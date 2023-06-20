@@ -2,7 +2,7 @@
   (:require [org.httpkit.server :as kit]
             [ring.middleware.reload :refer [wrap-reload]]
             [ring.middleware.json :refer [wrap-json-response]]
-            [compojure.core :refer [defroutes GET]]
+            [compojure.core :refer [defroutes GET POST]]
             [backend.db :as db]))
 
 (defn hello-world [_]
@@ -13,9 +13,15 @@
 
 (defonce answer (atom 42))
 
+(defn complete-task [id]
+  (fn [_] (db/mark-complete! id)))
+
 (defroutes handler
   (GET "/" [] hello-world)
   (GET "/api/v1" [] (db/all-tasks))
+  (GET "/api/v1/active" [] (db/active-tasks))
+  (GET "/api/v1/completed" [] (db/completed-tasks))
+  (POST "/api/v1/complete/:id" [id] (complete-task id))
   (GET "/answer" [] (str "Answer is " @answer))
   (GET "/hi/:name" [name] (make-greeter name)))
 
