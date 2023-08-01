@@ -2,7 +2,7 @@
 
 _Note_: to follow the progression, check also other branches such as `step0`, `step1`, etc.
 
-**Requirements**: JDK (Java Development Kit), [Clojure](https://clojure).
+**Requirements**: JDK (Java Development Kit), [Clojure](https://clojure.org/).
 
 To run directly (without REPL):
 ```
